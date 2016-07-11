@@ -1,14 +1,39 @@
 .photos {
-	float: left;padding: 10px;margin: 10px;background-color: white;
+	float: left;padding: 10px;margin: 30px;background-color: white;
+	box-shadow: 0px -5px 5px red,5px 0px 5px green,0px 5px 5px yellow,-5px 0px 5px blue;
+	border-radius: 5px;
+	transition: transform 0.3s linear;
+	position: relative;
+	overflow: hidden;
 }
+
+.photos:nth-child( 2n - 1 ) {
+	transform: rotate(5deg);
+}
+
+.photos:hover {
+	transform: scaleX(1.2)
+}
+.photos:hover p {
+	bottom: 0px;
+}
+
 .photos img {
 	height: 150px;display: block;
 }
 .photos p {
+	background-color: #cccccc;
+	color: white;
+	width: 100%;
+	margin: 0px;
 	text-align: center;
 	font-size: 18px;
 	font-family: "微软雅黑";
-	
+	position: absolute;
+	height: 30px;
+	bottom: -30px;
+	left: 0px;
+	transition: all 0.3s linear;
 }
 body {
 	background-image: url(../img/bg3.JPG);
