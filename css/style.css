@@ -1,0 +1,14 @@
+.photos {
+	float: left;padding: 10px;margin: 10px;background-color: white;
+}
+.photos img {
+	height: 150px;display: block;
+}
+.photos p {
+	text-align: center;
+	font-size: 18px;
+	font-family: "微软雅黑";
+}
+body {
+	background-image: url(../img/bg3.JPG);
+}
