@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>买早餐</title>
+		<script type="text/javascript">
+			window.onload = function() {
+				document.getElementById("pay").onclick = function() {
+					var food = document.getElementById("food").value;
+					var num = document.getElementById("num").value;
+					
+					var money = 0;
+					if( food == "包子" ) {
+						money = 1.5 * num;
+					} else if( food == "馒头") {
+						money = num;
+					} else if( food == "饺子" ) {
+						money = 0.8 * num;
+					} else if( food == "鸡蛋" ) {
+						money = 2 * num;
+					}
+					
+					money = money.toFixed(2);
+					var arr = money.split(".");
+					money = "";
+					var temp = arr[0];
+					var index = Math.ceil(temp.length / 3) - 1;
+					for( var i = 0;i < index;i++ ) {
+						money = "," + temp.slice( temp.length - 3 ) + money;
+						temp = temp.slice(0,temp.length - 3);
+					}
+					money = temp + money + '.' + arr[1];
+					
+					alert("你一共要付￥" + money + "元");
+				}
+			}
+		</script>
+	</head>
+	<body>
+		食物：
+		<select id = "food">
+			<option>包子</option>
+			<option>馒头</option>
+			<option>饺子</option>
+			<option>鸡蛋</option>
+		</select>
+		数量：
+		<input type="number" name="" id="num" value="" />
+		<button id="pay">付款</button>
+	</body>
+</html>
