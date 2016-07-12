@@ -5,7 +5,7 @@
 
 body,html {
 	font-family: game;
-	font-size: 12px;
+	font-size: 16px;
 }
 
 .login-con {
@@ -51,6 +51,227 @@ body,html {
 .login-con input:hover,.login-con button:hover {
 	color: green;
 } 
+
+.main-con {
+	width: 1200px;
+	height: 600px;
+	margin: auto;
+	background-image: url(../img/main-bg.jpg);
+	position: relative;
+}
+
+.main-con .userinfo {
+	position: absolute;
+	width: 250px;
+	height: 150px;
+	top: 70px;
+	left: 110px;
+}
+
+.main-con .online {
+	position: absolute;
+	width: 285px;
+	height: 175px;
+	left: 100px;
+	bottom: 135px;
+}
+
+.main-con .online .head {
+	margin-bottom: 10px;
+}
+.main-con .online .head:after {
+	content: ' ';
+	display: block;
+	clear: both;
+}
+.main-con .online .head:before {
+	content: ' ';
+	display: block;
+	clear: both;	
+}
+.main-con .online .head h3 {
+	float: left;
+	margin: 0px;
+}
+.main-con .online .head span {
+	float: right;
+}
+.main-con .online .body {
+	height: 140px;
+	overflow-y: scroll;
+}
+.main-con .online .body table {
+	width: 100%;
+}
+.main-con .online .body table tr {
+	height: 30px;
+}
+
+
+.main-con .rooms {
+	width: 650px;
+	height: 170px;
+	position: absolute;
+	top: 50px;
+	right: 90px;
+}
+.main-con .rooms .head {
+	text-align: center;
+}
+.main-con .rooms .body {
+	height: 100px;
+	overflow-y: scroll;
+}
+.main-con .rooms .body div{
+	float: left;
+	margin: 10px 20px;
+	text-align: center;
+}
+
+
+.main-con .chat {
+	position: absolute;
+	width: 670px;
+	height: 270px;
+	right: 70px;
+	bottom: 50px;
+}
+.main-con .chat .head {
+	text-align: center;
+}
+.main-con .chat .body {
+	height: 180px;
+}
+.main-con .chat .body ul {
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+}
+.main-con .chat .body ul li {
+	height: 30px;
+	line-height: 30px;
+}
+.main-con .chat .footer {
+	text-align: center;
+}
+.main-con .chat .footer input[type=text] {
+	width: 250px;
+	height: 25px;
+	border: 2px solid black;
+	border-radius: 10px;
+}
+
+
+#roomname {
+	position: absolute;
+	left: 80px;
+	bottom: 45px;
+	height: 35px;
+	width: 170px;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	text-align: center;
+	font-family: 'game';
+	color: white;
+}
+#createroom {
+	position: absolute;
+	left: 285px;
+	bottom: 40px;
+	width: 70px;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	text-align: center;
+	font-family: game;
+	color: white;
+	font-size: 24px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
