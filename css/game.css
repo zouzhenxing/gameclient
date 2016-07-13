@@ -159,6 +159,9 @@ body,html {
 	height: 25px;
 	border: 2px solid black;
 	border-radius: 10px;
+	outline: none;
+	font-family: game;
+	text-align: center;
 }
 
 

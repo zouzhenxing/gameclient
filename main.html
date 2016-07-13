@@ -5,16 +5,14 @@
 		<title>游戏大厅</title>
 		<link rel="stylesheet" type="text/css" href="css/game.css"/>
 		<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/data.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
 		<div class="main-con">
 			<div class="userinfo">
-				<h1>小样</h1>
-				<p>ID:123456789</p>
-				<p>
-					胜场:0
-					胜率:0%
-				</p>
+				<h1></h1>
+				<p></p>
+				<p></p>
 			</div>
 			<div class="online">
 				<div class="head">
@@ -22,104 +20,25 @@
 					<span>78/108人</span>
 				</div>
 				<div class="body">
-					<table>
-						<tr>
-							<td>玩家一</td>
-							<td>123456789</td>
-							<td>在线</td>
-						</tr>
-						<tr>
-							<td>玩家一</td>
-							<td>123456789</td>
-							<td>在线</td>
-						</tr>
-						<tr>
-							<td>玩家一</td>
-							<td>123456789</td>
-							<td>在线</td>
-						</tr>
-						<tr>
-							<td>玩家一</td>
-							<td>123456789</td>
-							<td>在线</td>
-						</tr>
-						<tr>
-							<td>玩家一</td>
-							<td>123456789</td>
-							<td>在线</td>
-						</tr>
-						<tr>
-							<td>玩家一</td>
-							<td>123456789</td>
-							<td>在线</td>
-						</tr>
-						<tr>
-							<td>玩家一</td>
-							<td>123456789</td>
-							<td>在线</td>
-						</tr>
-						<tr>
-							<td>玩家一</td>
-							<td>123456789</td>
-							<td>在线</td>
-						</tr>
-					</table>
+					<table></table>
 				</div>
 			</div>
 			<div class="rooms">
 				<div class="head">
 					<h3>房间</h3>
 				</div>
-				<div class="body">
-					<div>
-						<img src="img/room.png"/>
-						<p>输光光</p>
-					</div>
-					<div>
-						<img src="img/room.png"/>
-						<p>输精光</p>
-					</div>
-					<div>
-						<img src="img/room.png"/>
-						<p>输精光</p>
-					</div>
-					<div>
-						<img src="img/room.png"/>
-						<p>输精光</p>
-					</div>
-					<div>
-						<img src="img/room.png"/>
-						<p>输精光</p>
-					</div>
-					<div>
-						<img src="img/room.png"/>
-						<p>输精光</p>
-					</div>
-					<div>
-						<img src="img/room.png"/>
-						<p>输精光</p>
-					</div>
-					<div>
-						<img src="img/room.png"/>
-						<p>输精光</p>
-					</div>
-				</div>
+				<div class="body"></div>
 			</div>
 			<div class="chat">
 				<div class="head">
 					<h3>聊天信息</h3>
 				</div>
 				<div class="body">
-					<ul>
-						<li>玩家一：这个游戏怎么玩？</li>
-						<li>玩家一：这个游戏怎么玩？</li>
-						<li>玩家一：这个游戏怎么玩？</li>
-						<li style="text-align: right;">这个游戏很好玩:小样</li>
-					</ul>
+					<ul></ul>
 				</div>
 				<div class="footer">
-					<input type="text" name="" id="" value="" />
-					<buttom>发送</buttom>
+					<input type="text" name="" id="chatmsg" value="" />
+					<buttom id="sendchat">发送</buttom>
 				</div>
 			</div>
 			<input type="" name="" id="roomname" value="" />
@@ -127,11 +46,100 @@
 		</div>
 	</body>
 	<script type="text/javascript">
+		var user = null;
 		$(function() {
-			var user = localStorage.getItem("user");
+			user = localStorage.getItem("user");
 			if( !user ) {
 				window.location.href = "login.html";
+				return;
+			} else {
+				user = JSON.parse(user);
 			}
+			
+			$("#sendchat").click(function(){
+				var chat = {
+					nickname : user.nickname,
+					msg : $("#chatmsg").val()
+				}
+				
+				showChat( chat,true );
+			});
+			
+			initUser( user );
+			initOnline( users );
+			initRooms( rooms );
 		});
+		
+		function initUser( user ) {
+			$(".userinfo h1").html(user.nickname).next().html("ID:" + user.id)
+			                 .next().html("胜场：" + user.win + " 胜率：" + ( user.total ? user.win / user.total : 0 ) + "%" );
+		}
+		
+		function initOnline( users ) {
+			var html = "";
+			for( var i = 0;i < users.length;i++ ) {
+				var temp = users[i];
+				html += '<tr>';
+				html += '<td>' + temp.nickname + '</td>';
+				html += '<td>' + temp.id + '</td>';
+				html += '<td>' + getStatus(temp.status) + '</td>';
+				html += '</tr>';
+			}
+			
+			$(".online table").html(html);
+		}
+		
+		function initRooms( rooms ) {
+			var html = "";
+			for( var i = 0;i < rooms.length;i++ ) {
+				var temp = rooms[i];
+				html += '<div>'
+				html += '<img src="img/room.png"/>';
+				html +=	'<p>输光光</p>';
+				html += '</div>';
+			}
+			$(".rooms .body").html(html);
+		}
+		
+		function showChat( chat,isme ) {
+			if( isme ) {
+				$(".chat .body ul").append("<li style='text-align: right;'>"+ chat.msg +  ":" + chat.nickname  +  "</li>");
+			} else {
+				$(".chat .body ul").append("<li>" + chat.nickname + ":" + chat.msg + "</li>");
+			}
+		}
+		
+		function getStatus( status ) {
+			if( status == 1 ) {
+				return "在线";
+			} else if( status == 2 ) {
+				return "准备中";
+			} else if( status == 3 ) {
+				return "游戏中";
+			} else {
+				return "";
+			}
+		}
 	</script>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
