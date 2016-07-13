@@ -1,0 +1,25 @@
+.contrain {
+	width: 700px;
+	margin: auto;
+}
+
+.contrain .left {
+	width: 140px;
+	float: left;
+}
+
+.contrain .right {
+	width: 140px;
+	float: right;
+}
+
+.contrain img{
+	transition: all 0.5s linear;
+}
+
+.info {
+	width: 700px;
+	margin: auto;
+	height: 120px;
+	overflow-y: scroll;
+}

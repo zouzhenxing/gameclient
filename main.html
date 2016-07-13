@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<title>游戏大厅</title>
 		<link rel="stylesheet" type="text/css" href="css/game.css"/>
+		<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
 		<div class="main-con">
@@ -125,4 +126,12 @@
 			<button id="createroom">创建房间</button>
 		</div>
 	</body>
+	<script type="text/javascript">
+		$(function() {
+			var user = localStorage.getItem("user");
+			if( !user ) {
+				window.location.href = "login.html";
+			}
+		});
+	</script>
 </html>

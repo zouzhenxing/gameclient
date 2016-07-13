@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#d1 {
+				width: 100px;height: 100px;background-color: red;opacity: 1;
+				transition: all 0.5s linear;
+			}
+		</style>
+		<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+//			window.onload = function() {
+//				document.getElementById("d1").onclick = function() {
+//					this.style.transform = "rotate(360deg)";
+//					this.style.opacity = 0;
+//				}
+//			}
+			$(function(){
+				$("#d1").click(function(){
+					$(this).css("transform","rotate(360deg)").css("opacity",0);
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div id="d1"></div>
+	</body>
+</html>

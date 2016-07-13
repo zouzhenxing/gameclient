@@ -4,16 +4,35 @@
 		<meta charset="UTF-8">
 		<title>游戏登陆</title>
 		<link rel="stylesheet" type="text/css" href="css/game.css"/>
+		<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
 		<div class="login-con">
-			<input type="text" name="" id="" value="" placeholder="请输入用户名称"/>
-			<button onclick="goMain()">进入游戏</button>
+			<input type="text" name="" id="nickname" value="" placeholder="请输入用户名称"/>
+			<button id = "joingame">进入游戏</button>
 		</div>
 	</body>
 	<script type="text/javascript">
-		function goMain() {
-			window.location.href = "main.html";
-		}
+		//如果localStorage里面有user，那么直接跳转到main.html
+		//如果没有，那么玩家重新创建一个user
+		$(function(){
+			var user = localStorage.getItem("user");
+			if( user ) {
+				window.location.href = "main.html";
+			}
+			
+			//0表示没上线 1表示上线 2表示准备中 3表示游戏中
+			$("#joingame").click(function(){
+				var user = {
+					nickname : $("#nickname").val(),
+					id : null,
+					win : 0,
+					total : 0,
+					status : 0 
+				};
+				localStorage.setItem("user", JSON.stringify(user));
+				window.location.href = "main.html";
+			});
+		});
 	</script>
 </html>
