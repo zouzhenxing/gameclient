@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var pen = null;
+			$(function(){
+				pen = $("#can").get(0).getContext("2d");
+//				var lg = pen.createLinearGradient(0,0,300,300);
+//				lg.addColorStop(0,"#FF0000");
+//				lg.addColorStop(0.5,"#00FF00");
+//				lg.addColorStop(1,"#0000FF");
+
+				var lg = pen.createRadialGradient(150,150,5,150,150,100);
+				lg.addColorStop(0,"#FF0000");
+				lg.addColorStop(0.5,"#00FF00");
+				lg.addColorStop(1,"#0000FF");
+				pen.fillStyle = lg;
+				pen.strokeStyle = lg;
+				
+				pen.beginPath();
+				pen.arc(150,150,149,0,Math.PI);
+				pen.arc(150,150,50,Math.PI, 2 * Math.PI);
+				pen.lineTo(300,150);
+				pen.fill();				
+				pen.closePath();
+				
+				pen.font = "20px Georgia";
+				pen.strokeText("北师珠真漂亮",50,50);
+			});
+		</script>
+	</head>
+	<body>
+		<canvas id="can" width="300px" height="300px"></canvas>
+	</body>
+</html>

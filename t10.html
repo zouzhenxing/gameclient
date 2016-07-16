@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>canvas测试</title>
+		<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+				var pen = $("#can").get(0).getContext("2d");
+				
+				//画线
+				pen.strokeStyle = "#FF0000";
+				pen.lineCap = "square";
+				pen.lineJoin = "round";
+				pen.lineWidth = 5;
+				pen.moveTo(30,30);
+				pen.lineTo(270,270);
+				pen.stroke();//画出轮
+				
+				pen.moveTo(270,30);
+				pen.lineTo(30,270);
+				pen.stroke();
+			});
+		</script>
+	</head>
+	<body>
+		<canvas id="can" width="300px" height="300px" style="background-color: #CCCCCC;"></canvas>
+	</body>
+</html>

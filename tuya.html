@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>涂鸦板</title>
+		<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/tuya.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<button id="pen">铅笔</button>
+		<button id="line">直线</button>
+		<button id="rect">矩形</button>
+		<button id="arc">圆形</button>
+		<button id="eraser">橡皮擦</button>
+		<button id="save">保存</button>
+		
+		<select id="linewidth">
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>
+		</select>
+		
+		<select id="color">
+			<option>black</option>
+			<option>red</option>
+			<option>green</option>
+			<option>blue</option>
+		</select>
+		
+		<div>
+			<canvas id="can" width="600px" height="300px" style="background-color: beige;"></canvas>	
+		</div>
+	</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var pen
+			$(function(){
+				pen = $("#can").get(0).getContext("2d");
+				
+				setInterval(function(){
+					draw();
+				},1000);
+			});
+			
+			function draw() {
+				pen.clearRect(0,0,300,300);
+				pen.shadowColor = "#000000";
+				pen.shadowBlur = 10;
+				
+				for( var i = 0;i < 10;i++ ) {
+					var x = Math.floor(Math.random() * 300);
+					var y = Math.floor(Math.random() * 300);
+					pen.fillStyle = randomColor();
+					pen.beginPath();
+					pen.rect(x,y,50,50);
+					pen.fill();
+					pen.closePath();
+				}
+			}
+			function randomColor() {
+				return '#'+('00000'+(Math.random()*0x1000000<<0).toString(16)).slice(-6);
+			}
+		</script>
+	</head>
+	<body>
+		<canvas id="can" width="300px" height="300px"></canvas>
+	</body>
+</html>
