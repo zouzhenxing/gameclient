@@ -164,8 +164,7 @@ body,html {
 	text-align: center;
 }
 
-
-#roomname {
+.roomname {
 	position: absolute;
 	left: 80px;
 	bottom: 45px;
@@ -178,7 +177,7 @@ body,html {
 	font-family: 'game';
 	color: white;
 }
-#createroom {
+.createname {
 	position: absolute;
 	left: 285px;
 	bottom: 40px;
@@ -192,8 +191,14 @@ body,html {
 	font-size: 24px;
 }
 
-
-
+.game {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+.game canvas {
+	background-color: antiquewhite;
+}
 
 
 
