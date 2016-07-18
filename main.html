@@ -56,13 +56,17 @@
 		<script type="text/javascript">
 			var user = socket = null;
 			$(function(){
-				socket = io('http://localhost:3000',{
+				user = JSON.parse(localStorage.getItem("user"));
+				if( !user ) {
+					window.location.href = "login.html";
+					return;
+				}
+				socket = io('http://172.21.133.100:3000',{
 					autoConnect : false,
 					reconnection : false
 				});
 				socket.open();
 				socket.on('connect', function(){
-					user = JSON.parse(localStorage.getItem("user"));
 					user.id = socket.id;
 					user.status = 1;
 					
@@ -174,7 +178,7 @@
 					html = "<li>" + chat.nickname + ":" + chat.msg + "</li>";
 				}
 				
-				$(".chat .body ul").append(html);
+				$(".chat .body ul").prepend(html);
 			}
 			
 			function joinRoom( room,iscreate ) {
@@ -200,7 +204,7 @@
 					socket.emit("game.start");
 				});
 				$("#leaveroom").click(function(){
-					
+					socket.emit("room.leave");
 				});
 			}
 			

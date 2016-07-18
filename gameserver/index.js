@@ -20,8 +20,92 @@ io.on('connection', function(socket){
       socket.in(user.room).emit("chat.newchat",chat);
   });
 
+  socket.on("room.leave",function(){
+      var user = users[socket.id.replace("/#","")];
+      var room = rooms[user.room];
+      
+      if( user.id == room.play1.id ) { //房主
+          delete rooms[user.room];
+          if( room.play2 ) {
+              room.play2.status = 1;
+              room.play2.room = "public";
+              //找到对方的socket，离开房间进入public
+              var so = io.sockets.sockets["/#" + room.play2.id];
+              so.leave(user.room);
+              so.join("public");
+          }
+      } else { //加入者
+          room.play2 = null;
+          socket.in(user.room).emit("room.createOK",room);
+      }
+
+      //自己退出房间
+      socket.leave(user.room);
+      socket.join("public");
+      user.status = 1;
+      user.room = "public";
+      //自己退出房间，刷新房间列表
+      io.sockets.in("public").emit("room.change",getRooms());
+      io.sockets.emit("user.online",getUsers());
+  });
+
   socket.on('disconnect', function(){
-      delete users[socket.id.replace("/#","")];
+      var user = users[socket.id.replace("/#","")];
+      if( user.status == 3 ) { //游戏状态
+          var room = rooms[user.room];
+          if( user.id == room.play1.id ) {
+              delete rooms[user.room];
+              room.play2.status = 1;
+              room.play2.room = "public";
+              room.play2.win += 1;
+              room.play2.total += 1;
+              //找到对方的socket，离开房间进入public
+              var so = io.sockets.sockets["/#" + room.play2.id];
+              so.leave(user.room);
+              so.join("public");
+
+              so.emit("game.over",room.play2);
+              so.emit("chat.newchat",{
+                nickname : '系统消息',
+                msg : "您的对手被网络打败了"
+              });
+              io.sockets.in("public").emit("room.change",getRooms()); 
+          } else {
+              room.play1.status = 2;
+              room.play1.win += 1;
+              room.play1.total += 1;
+              
+              room.play2 = null;
+              socket.in(user.room).emit("game.over",room.play1);
+              socket.in(user.room).emit("room.createOK",room);
+              socket.in(user.room).emit("chat.newchat",{
+                nickname : '系统消息',
+                msg : "您的对手被网络打败了"
+              });
+          }
+      }
+
+      if( user.status == 2 ) { //等待状态
+          var room = rooms[user.room];
+          if( user.id == room.play1.id ) {
+              delete rooms[user.room];
+              if( room.play2 ) {
+                room.play2.status = 1;
+                room.play2.room = "public";
+                //找到对方的socket，离开房间进入public
+                var so = io.sockets.sockets["/#" + room.play2.id];
+                so.leave(user.room);
+                so.join("public");
+              }
+              io.sockets.in("public").emit("room.change",getRooms());
+          } else {
+              room.play2 = null;
+              socket.in(user.room).emit("room.createOK",room);
+          }
+      }
+
+      //删除自己通知所有人
+      delete users[socket.id.replace("/#","")];      
       io.sockets.emit("user.online",getUsers());
   });
 
