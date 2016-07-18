@@ -231,6 +231,10 @@ function getRooms() {
     return arr;
 }
 
+//守护进程，以防止错误退出
+process.on('uncaughtException', function (err) {
+　　console.log('Caught exception: ' + err);
+});
 
 server.listen(3000);
 console.log("服务器启动成功");
