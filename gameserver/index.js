@@ -99,6 +99,34 @@ io.on('connection', function(socket){
       socket.in( user.room ).emit("game.changedata",data);
   });
 
+  //游戏结束指令
+  socket.on("game.over",function(){
+      //找到玩家
+      var user = users[socket.id.replace("/#","")];
+      var room = rooms[user.room];
+      //
+      var winer = user.id == room.play1.id ? room.play1 : room.play2;
+      var faild = user.id == room.play1.id ? room.play2 : room.play1;
+      
+      //更改状态
+      winer.win += 1;
+      winer.total += 1;
+      winer.status = 2;
+      faild.total += 1;
+      faild.status = 2;
+
+      //返回游戏结束指令
+      socket.emit("game.over",winer);
+      socket.in(user.room).emit("game.over",faild);
+      //向两位玩家发送一条系统消息
+      io.sockets.in(user.room).emit("chat.newchat",{
+          nickname : '系统消息',
+          msg : winer.nickname + "赢了"
+      });
+
+      //向所有人广播
+      io.sockets.emit("user.online",getUsers());
+  });
 });
 
 function getUsers() {

@@ -62,7 +62,11 @@
 				});
 				socket.open();
 				socket.on('connect', function(){
-					initUser();
+					user = JSON.parse(localStorage.getItem("user"));
+					user.id = socket.id;
+					user.status = 1;
+					
+					initUser(user);
 					socket.emit("user.online",user);
 				});
 				socket.on("user.online",function( online ){
@@ -97,6 +101,14 @@
 					drawFive( data.row,data.col,data.flag );
 					status = "run";
 				});
+				socket.on("game.over",function( user ){
+					//清除棋盘
+					$("#game").html("");
+					initUser(user);
+					data = [];//初始化数组
+					//保存用户的记录
+					localStorage.setItem("user",JSON.stringify(user));
+				});
 				
 				$("#send").click(function() {
 					var chat = {
@@ -114,10 +126,7 @@
 				});
 			});
 			
-			function initUser() {
-				user = JSON.parse(localStorage.getItem("user"));
-				user.id = socket.id;
-				user.status = 1;
+			function initUser( user ) {
 				$(".userinfo h2").html(user.nickname).next()
 					.html("ID:" + user.id).next()
 					.html("胜场:" + user.win + " 胜率:" +  (user.total ? (user.win/user.total)*100 : 0) + "%" );
